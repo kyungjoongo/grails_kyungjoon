@@ -12,6 +12,10 @@
             <td>${testOne.content}</td>
             <td>${testOne.name}</td>
             <td>${testOne.pubDate}</td>
+            %{--<Td>${testOne.imageName}</Td>--}%
+            <td>
+                <img src="/test/getImage?name=${testOne.imageName}" style="width: 10%; height: 10%"/>
+            </td>
         </tr>
 
 
@@ -26,7 +30,7 @@
 --}%
 
 
-    <img src="/test/getImage?name=Jellyfish.jpg" width="50%" height="50%"/>
+    %{--<img src="/test/getImage?name=Jellyfish.jpg" style="width: 10%; height: 10%"/>--}%
 
 </table>
 

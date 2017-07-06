@@ -60,8 +60,13 @@ dependencies {
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     compile 'com.nayidisha.grails.uploadr:grails3-uploadr:3.1.0'
     runtime 'mysql:mysql-connector-java:5.1.37'
-    compile 'org.imgscalr:imgscalr-lib:4.1'
-    compile "org.grails.plugins:image-tools:0.1"
+    /*compile 'org.imgscalr:imgscalr-lib:4.1'*/
+    /*compile "org.grails.plugins:image-tools:0.1"*/
+    // https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
+    compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+    compile 'org.grails.plugins:database-migration:3.0.3'
+    compile 'org.grails.plugins:grails-flyway:0.2'
+
 }
 
 bootRun {
@@ -73,4 +78,12 @@ bootRun {
 assets {
     minifyJs = true
     minifyCss = true
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'grails-app/migrations'
+        }
+    }
 }

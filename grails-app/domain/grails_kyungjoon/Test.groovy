@@ -5,6 +5,7 @@ class Test {
     String content
     String pubDate
     String modDate
+    String imageName
 
 
     static constraints = {
