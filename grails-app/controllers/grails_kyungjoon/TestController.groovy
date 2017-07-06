@@ -47,16 +47,16 @@ class TestController {
         String pComment = params.get("comment");
         def _testId = params.get("_testId")
 
-        def _test = Test.findById(_testId);
+        def test = Test.findById(_testId);
 
-        def comment = new Comment(author: "kyungjoon", content: pComment, test: _test)
-
+        def comment = new Comment(author: "kyungjoon", content: pComment, test: test)
         comment.save()
 
-        Boolean result= true;
+        List commentList = Comment.findAllByTest(test)
+
         Map resultMap=new HashMap();
 
-        resultMap.put("result", result)
+        resultMap.put("result", comment)
 
         render resultMap as JSON
 
