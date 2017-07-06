@@ -19,7 +19,7 @@ class TestController {
 
 
     def list() {
-        List<Test> testList = Test.listOrderById(order: "asc");
+        List<Test> testList = Test.listOrderById(order: "desc");
 
         List resultList =new ArrayList()
 
@@ -97,7 +97,11 @@ class TestController {
         def content = params.get("content")
         def fileName = f.originalFilename
 
-        def test = new Test(name: name, content: content, pubDate: new Date(), modDate: new Date(), imageName: fileName)
+        // HQL
+        /*results = Test.executeQuery('select distinct style from Artist')
+        println results*/
+
+        def test = new Test(name: name, content: content, pubDate: new Date(), modDate: new Date(), imageName: fileName, commen_id: 0)
         test.save(flush: true, failOnError: true);
 
         if (f.empty) {
