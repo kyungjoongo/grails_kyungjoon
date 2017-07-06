@@ -8,6 +8,7 @@ buildscript {
         classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
         /*classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.2"*/
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
+        classpath 'org.grails.plugins:database-migration:3.0.3'
     }
 }
 
@@ -65,7 +66,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
     compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
     compile 'org.grails.plugins:database-migration:3.0.3'
-    compile 'org.grails.plugins:grails-flyway:0.2'
+    compile 'org.liquibase:liquibase-core:3.5.3'
 
 }
 

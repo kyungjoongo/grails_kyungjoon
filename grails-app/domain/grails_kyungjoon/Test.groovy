@@ -7,9 +7,17 @@ class Test {
     String modDate
     String imageName
 
+    List<Comment> commentList
+
+    static hasMany = [comment: Comment]
+
+
+    static transients = ['commentList']
 
     static constraints = {
 
         name maxSize: 255
     }
+
+
 }

@@ -1,5 +1,6 @@
 package grails_kyungjoon
 
+import grails.converters.JSON
 import org.springframework.web.servlet.ModelAndView
 
 import javax.imageio.ImageIO
@@ -18,8 +19,49 @@ class TestController {
 
 
     def list() {
-        List testList = Test.listOrderById(order: desc);
-        return new ModelAndView("/test/list", [testList: testList])
+        List<Test> testList = Test.listOrderById(order: "asc");
+
+        List resultList =new ArrayList()
+
+        for ( Test testOne : testList){
+            List commentList = Comment.findAllByTest(testOne)
+
+            testOne.setCommentList(commentList)
+
+            println ("COmmentList"+ commentList.toString())
+
+            for ( Comment commentOne : commentList){
+                println (commentOne.getId())
+                println (commentOne.getContent())
+            }
+
+            resultList.add(testOne);
+
+        }
+
+        return new ModelAndView("/test/list", [testList: resultList])
+    }
+
+
+    def writeComment(){
+        String pComment = params.get("comment");
+        def _testId = params.get("_testId")
+
+        def _test = Test.findById(_testId);
+
+        def comment = new Comment(author: "kyungjoon", content: pComment, test: _test)
+
+        comment.save()
+
+        Boolean result= true;
+        Map resultMap=new HashMap();
+
+        resultMap.put("result", result)
+
+        render resultMap as JSON
+
+        /*render vehicleList.toList() as JSON*/
+
     }
 
     /**
@@ -38,11 +80,8 @@ class TestController {
         MemoryCacheImageOutputStream memoryCacheImageOutputStream = new MemoryCacheImageOutputStream(baos)
 
         def fileext = path.substring(path.indexOf(".") + 1, path.length())
-
-
         ImageIO.write(originalImage, fileext, baos);
         baos.flush();
-
         byte[] img = baos.toByteArray();
         baos.close();
         response.setHeader('Content-length', img.length.toString())
@@ -73,7 +112,6 @@ class TestController {
         }
 
     }
-
 
     //get the list of files, to create links in the view
     def listImages() {
