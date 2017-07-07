@@ -11,11 +11,11 @@ class TestControllerTest extends Specification {
     @org.junit.Test
     def "List"() {
 
-        List<Test> testList = Test.listOrderById(order: "desc");
+        List<Content> testList = Content.listOrderById(order: "desc");
 
         List resultList =new ArrayList()
 
-        for ( Test testOne : testList){
+        for ( Content testOne : testList){
             List commentList = Comment.findAllById(testOne.getId())
 
             testOne.setCommentList(commentList)
@@ -33,7 +33,7 @@ class TestControllerTest extends Specification {
 
 
 
-        return new ModelAndView("/test/list", [testList: resultList])
+        return new ModelAndView("/content/list", [testList: resultList])
 
     }
 }

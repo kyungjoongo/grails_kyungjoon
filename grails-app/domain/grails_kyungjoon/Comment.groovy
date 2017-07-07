@@ -7,7 +7,7 @@ class Comment {
     String pubDate
     String modDate
 
-    static belongsTo = [test: Test]
+    static belongsTo = [test: Content]
 
     static constraints = {
 

@@ -34,6 +34,9 @@ endpoints:
 
 ---
 grails:
+#    gorm:
+#      default:
+#        constraints : {'*'(nullable: true, size: 1..20)
     mime:
         disable:
             accept:
@@ -90,6 +93,8 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
+
+
 endpoints:
     jmx:
         unique-names: true
@@ -127,6 +132,8 @@ environments:
         dataSource:
             dbCreate: update
             url: jdbc:mysql://localhost:3306/grails_test
+            hibernate:
+                show_sql : true
     test:
         dataSource:
             dbCreate: update

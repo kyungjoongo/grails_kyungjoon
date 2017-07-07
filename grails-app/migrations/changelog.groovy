@@ -57,7 +57,7 @@ databaseChangeLog = {
     }
 
     changeSet(author: "NAVER (generated)", id: "1499318051780-3") {
-        createTable(tableName: "test") {
+        createTable(tableName: "content") {
             column(autoIncrement: "true", name: "id", type: "BIGINT") {
                 constraints(primaryKey: "true")
             }

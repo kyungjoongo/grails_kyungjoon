@@ -1,15 +1,16 @@
 package grails_kyungjoon
 
 import grails.converters.JSON
+import liquibase.util.StringUtils
 import org.springframework.web.servlet.ModelAndView
 
 import javax.imageio.ImageIO
 import javax.imageio.stream.MemoryCacheImageOutputStream
 import java.awt.image.BufferedImage
 
-class TestController {
+class ContentController {
 
-    /*static scaffold = Test*/
+    /*static scaffold = Content*/
     static defaultAction = "list"
 
     final static imagePath = "e:/test/"
@@ -19,11 +20,24 @@ class TestController {
 
 
     def list() {
-        List<Test> testList = Test.listOrderById(order: "desc");
+
+        def name = params.get("name")
+
+        List<Content> testList=new ArrayList<>();
+        if (StringUtils.isEmpty(name)){
+           /* testList = Content.findAllByNameIsNotNull(name, [sort: "id", order: "desc"]);*/
+
+            testList = Content.findAll("from Content as b where b.name is not null order by b.id desc")
+
+
+        }else{
+            testList = Content.findAllByName(name, [sort: "id", order: "desc"]);
+        }
+
 
         List resultList =new ArrayList()
 
-        for ( Test testOne : testList){
+        for ( Content testOne : testList){
             List commentList = Comment.findAllByTest(testOne)
 
             testOne.setCommentList(commentList)
@@ -39,7 +53,7 @@ class TestController {
 
         }
 
-        return new ModelAndView("/test/list", [testList: resultList])
+        return new ModelAndView("/content/list", [testList: resultList])
     }
 
     def list2(){
@@ -51,7 +65,7 @@ class TestController {
         String pComment = params.get("comment");
         def _testId = params.get("_testId")
 
-        def test = Test.findById(_testId);
+        def test = Content.findById(_testId);
 
         def comment = new Comment(author: "kyungjoon", content: pComment, test: test)
         comment.save()
@@ -102,10 +116,10 @@ class TestController {
         def fileName = f.originalFilename
 
         // HQL
-        /*results = Test.executeQuery('select distinct style from Artist')
+        /*results = Content.executeQuery('select distinct style from Artist')
         println results*/
 
-        def test = new Test(name: name, content: content, pubDate: new Date(), modDate: new Date(), imageName: fileName, commen_id: 0)
+        def test = new Content(name: name, content: content, pubDate: new Date(), modDate: new Date(), imageName: fileName, commen_id: 0)
         test.save(flush: true, failOnError: true);
 
         if (f.empty) {
@@ -114,9 +128,12 @@ class TestController {
             return
         } else {
 
-            f.transferTo(new File('e:/test/' + fileName))
-            List testList = Test.listOrderById(order: "desc");
-            return new ModelAndView("/test/list", [testList: testList])
+            f.transferTo(new File('e:/content/' + fileName))
+            /*List testList = Content.listOrderById(order: "desc");
+            return new ModelAndView("/content/list", [testList: testList])*/
+
+            redirect(controller: "Content", action: "list")
+
         }
 
     }

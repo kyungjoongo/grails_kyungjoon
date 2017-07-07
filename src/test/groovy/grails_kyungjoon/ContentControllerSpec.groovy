@@ -1,9 +1,9 @@
 package grails_kyungjoon
 
-import grails.testing.gorm.DomainUnitTest
+import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class TestSpec extends Specification implements DomainUnitTest<Test> {
+class ContentControllerSpec extends Specification implements ControllerUnitTest<ContentController> {
 
     def setup() {
     }
