@@ -42,6 +42,10 @@ class TestController {
         return new ModelAndView("/test/list", [testList: resultList])
     }
 
+    def list2(){
+
+    }
+
 
     def writeComment(){
         String pComment = params.get("comment");
